@@ -8,19 +8,32 @@ function LandingPage() {
 
     const [Movies, setMovies] = useState([])
     const [MainMovieImage, setMainMovieImage] = useState(null)
+    const [currentPage, setcurrentPage] = useState(0)
 
     useEffect(() => {
         const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
 
+        fetchMovies(endpoint)
+        
+    }, [])
+    
+    const fetchMovies = (endpoint) => {
         //API를 통해 영화 데이터 가져오기
         fetch(endpoint)
         .then(response => response.json())
         .then(response => {
-            setMovies(response.results)
+            //Load more button 눌렀을 때 뒤에 붙어서 Grid Card가 나오게끔
+            setMovies([...Movies, ...response.results])
             setMainMovieImage(response.results[0])
+            setcurrentPage(response.page)
         })
-        
-    }, [])
+    }
+
+    const loadMoreItems = () => {
+        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage + 1}`;
+
+        fetchMovies(endpoint)
+    }
 
     return (
         <div style = {{width: '100%', margin: '0'}}>
@@ -57,7 +70,7 @@ function LandingPage() {
             </div>
             <div style = {{display: 'flex', justifyContent: 'center'}}>
 
-                <button>Load More</button>
+                <button onClick={loadMoreItems}>Load More</button>
 
             </div>
 
