@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Axios from 'axios'
+import {Button} from 'antd'
 
 function Favorite(props) {
 
@@ -12,12 +13,17 @@ function Favorite(props) {
     const [FavoriteNumber, setFavoriteNumber] = useState(0)
     const [Favorited, setFavorited] = useState(false)
 
+    let variable = {
+        userFrom: userFrom,
+        movieId: movieId,
+        movieTitle: movieTitle,
+        moviePost: moviePost,
+        movieRunTime: movieRunTime
+    }
+
     useEffect(() => {
         
-        let variable = {
-            userFrom: userFrom,
-            movieId: movieId
-        }
+        
         Axios.post('/api/favorite/favoriteNumber', variable)
         .then(response => {
             if(response.data.success) {
@@ -38,9 +44,33 @@ function Favorite(props) {
 
     }, [])
 
+    const onClickFavorite = () => {
+        if(Favorited) {
+            Axios.post('/api/favorite/removeFavorite', variable)
+            .then(response => {
+                if(response.data.success) {
+                    setFavoriteNumber(FavoriteNumber - 1)
+                    setFavorited(!Favorited)
+                } else {
+                    alert('Failed to remove favorite info')
+                }
+            })
+        } else {
+            Axios.post('/api/favorite/addFavorite', variable)
+            .then(response => {
+                if(response.data.success) {
+                    setFavoriteNumber(FavoriteNumber + 1)
+                    setFavorited(!Favorited)
+                } else {
+                    alert('Failed to add favorite info')
+                }
+            })
+        }
+    }
+
     return (
         <div>
-            <button>{Favorited ? "Not Favorite" : "Add to Favorite "} {FavoriteNumber}</button>
+            <Button onClick={onClickFavorite}>{Favorited ? "Not Favorite" : "Add to Favorite "} {FavoriteNumber}</Button>
         </div>
     )
 }

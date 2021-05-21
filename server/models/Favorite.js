@@ -21,6 +21,6 @@ const favoriteSchema = mongoose.Schema({
     }
 }, {timestamps: true}) //생성 시간 타임스탬프 자동 기록
 
-const Favorite = mongoose.model('User', favoriteSchema);
+const Favorite = mongoose.model('Favorite', favoriteSchema);
 
 module.exports = { Favorite }
