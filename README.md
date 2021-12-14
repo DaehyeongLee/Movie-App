@@ -1,3 +1,7 @@
+The movie db를 활용한 미니 프로젝트입니다.
+Front: React, antd, 
+Back: Node JS, Express, MongoDB
+
 To use this application, 
 
 1. make dev.js file inside config folder 
