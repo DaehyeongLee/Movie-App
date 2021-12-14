@@ -4,6 +4,8 @@ Front: **React, antd,**
 
 Back: **Node JS, Express, MongoDB**
 
+----------------------------------------
+
 To use this application, 
 
 1. make dev.js file inside config folder 
