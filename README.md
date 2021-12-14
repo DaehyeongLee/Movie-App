@@ -1,6 +1,6 @@
 The movie db를 활용한 미니 프로젝트입니다.
-Front: React, antd, 
-Back: Node JS, Express, MongoDB
+Front: **React, antd,** 
+Back: **Node JS, Express, MongoDB**
 
 To use this application, 
 
